@@ -1,12 +1,23 @@
 package org.launchcode.techjobs.persistent.models;
 
+import org.springframework.web.bind.annotation.Mapping;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-
+@MappedSuperclass
 public abstract class AbstractEntity {
 
+    @Id
+    @GeneratedValue
     private int id;
 
+    @NotNull
+    @Max(250)
     private String name;
 
     public int getId() {
