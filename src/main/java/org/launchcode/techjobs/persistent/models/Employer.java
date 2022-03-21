@@ -1,10 +1,12 @@
 package org.launchcode.techjobs.persistent.models;
 
 import javax.persistence.Entity;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -13,6 +15,10 @@ public class Employer extends AbstractEntity {
     @NotNull
     @Size(max = 250)
     private String location;
+
+    @OneToMany
+    @JoinColumn
+    private final List<Job> job = new ArrayList<>();
 
     public Employer(String location) {
         this.location = location;
@@ -24,6 +30,10 @@ public class Employer extends AbstractEntity {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Job> getJob() {
+        return job;
     }
 
     public Employer() {}
