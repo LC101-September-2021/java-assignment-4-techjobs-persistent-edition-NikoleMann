@@ -21,8 +21,12 @@ public class Employer extends AbstractEntity {
     private final List<Job> job = new ArrayList<>();
 
     public Employer(String location) {
+
+        super();
         this.location = location;
     }
+
+    public Employer() {}
 
     public String getLocation() {
         return location;
@@ -36,5 +40,5 @@ public class Employer extends AbstractEntity {
         return job;
     }
 
-    public Employer() {}
+
 }

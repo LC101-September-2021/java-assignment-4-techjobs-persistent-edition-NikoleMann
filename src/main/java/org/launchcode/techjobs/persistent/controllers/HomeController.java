@@ -4,6 +4,7 @@ import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
+import org.launchcode.techjobs.persistent.models.data.JobRepository;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class HomeController {
     @Autowired
     private SkillRepository skillRepository;
 
+    @Autowired
+    private JobRepository jobRepository;
+
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("title", "My Jobs");
@@ -37,6 +41,7 @@ public class HomeController {
     public String displayAddJobForm(Model model) {
         //list employers, add to model
         model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute("title", "Add Job");
         model.addAttribute(new Job());
         return "add";
@@ -53,12 +58,16 @@ public class HomeController {
         //set employer for newJob
         Employer newEmployer = employerRepository.findById(employerId).orElse(new Employer());
         //set skills for newJob
-        List<Skill> newSkill = (List<Skill>) skillRepository.findAllById(skills);
+        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
         //save in the repository newJob
         newJob.setEmployer(newEmployer);
 //        newJob.setSkills(newSkill);
+        newJob.setSkills(skillObjs);
+        jobRepository.save(newJob);
 
-
+        System.out.println(newJob.getEmployer());
+        System.out.println(newJob.getSkills());
+        System.out.println(newJob.getId());
 
         return "redirect:";
     }
@@ -66,6 +75,7 @@ public class HomeController {
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
+        model.addAttribute("job", jobRepository.findById(jobId));
         return "view";
     }
 

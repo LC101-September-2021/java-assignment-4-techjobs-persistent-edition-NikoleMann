@@ -13,7 +13,7 @@ WHERE (location = 'St. Louis')
 
 -- Part 3: Test it with SQL
     --write a SQL statement to remove the job table
-
+DROP TABLE job
 
 -- Part 4: Test it with SQL
     --write a query that returns a list of the names and descriptions of all skills attached to a job
