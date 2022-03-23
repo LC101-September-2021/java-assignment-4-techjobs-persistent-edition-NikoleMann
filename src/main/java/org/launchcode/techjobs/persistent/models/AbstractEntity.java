@@ -19,7 +19,7 @@ public abstract class AbstractEntity {
 
     @NotNull
     @Size(max = 250)
-    private String name;
+    public String name;
 
     public int getId() {
         return id;

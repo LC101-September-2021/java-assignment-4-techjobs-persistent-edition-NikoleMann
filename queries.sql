@@ -17,3 +17,7 @@ DROP TABLE job
 
 -- Part 4: Test it with SQL
     --write a query that returns a list of the names and descriptions of all skills attached to a job
+    --so write a query that lists the names and descriptions of all skills in the job_skills table
+    SELECT name, description
+    FROM skill
+    INNER JOIN job_skills on skill.id = job_skills.skills_id
